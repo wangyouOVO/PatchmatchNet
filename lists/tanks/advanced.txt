@@ -1,6 +1,0 @@
-advanced/Auditorium
-advanced/Ballroom
-advanced/Courtroom
-advanced/Museum
-advanced/Palace
-advanced/Temple
