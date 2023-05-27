@@ -30,19 +30,12 @@ def save_depth(args):
             evaluate_neighbors=args.evaluate_neighbors
         )
 
-        # print("-----模型为参数------")
-        # print(model)
-
         model = nn.DataParallel(model)
         state_dict = torch.load(args.checkpoint_path)["model"]
         model.load_state_dict(state_dict, strict=False)
     else:
         print("Using scripted module from {}".format(args.checkpoint_path))
         model = torch.jit.load(args.checkpoint_path)
-
-        print("-----模型为scripted------")
-        print(model)
-
         model = nn.DataParallel(model)
 
     model.cuda()
@@ -70,9 +63,6 @@ def save_depth(args):
                 sample_cuda["depth_min"],
                 sample_cuda["depth_max"]
             )
-
-
-
             depth = tensor2numpy(depth)
             confidence = tensor2numpy(confidence)
             del sample_cuda
@@ -210,7 +200,7 @@ def filter_depth(args, scan: str = ""):
     pair_data = read_pair_file(pair_file)
 
     # for each reference view and the corresponding source views
-    for ref_view, src_views in pair_data:
+    for ref_view, src_views in pair_data: 
         # load the reference image
         ref_img, original_h, original_w = read_image(
             os.path.join(args.input_folder, scan, "images/{:0>8}.jpg".format(ref_view)), args.image_max_dim)
@@ -226,8 +216,8 @@ def filter_depth(args, scan: str = ""):
         # load the photometric mask of the reference view
         confidence = read_map(
             os.path.join(args.output_folder, scan, "confidence/{:0>8}{}".format(ref_view, args.file_format)))
-
-        photo_mask = (confidence > args.photo_thres).squeeze(2)
+##########################################################
+        photo_mask = (confidence > -1).squeeze(2)
 
         all_src_view_depth_estimates = []
 
@@ -261,7 +251,7 @@ def filter_depth(args, scan: str = ""):
 
         depth_est_averaged = (sum(all_src_view_depth_estimates) + ref_depth_est) / (geo_mask_sum + 1)
 
-        geo_mask = geo_mask_sum >= args.geo_mask_thres
+        geo_mask = geo_mask_sum >= -1
         final_mask = np.logical_and(photo_mask, geo_mask)
 
         os.makedirs(os.path.join(args.output_folder, scan, "mask"), exist_ok=True)
@@ -308,7 +298,7 @@ def filter_depth(args, scan: str = ""):
 
 
 if __name__ == "__main__":
-    torch.backends.cudnn.benchmark = True
+    # torch.backends.cudnn.benchmark = True
 
     parser = argparse.ArgumentParser(description="Predict depth, filter, and fuse")
 
@@ -370,14 +360,14 @@ if __name__ == "__main__":
     if not input_args.output_folder:
         input_args.output_folder = input_args.input_folder
 
-    # Create output folder if it does not exist
-    os.makedirs(input_args.output_folder, exist_ok=True)
+    # # Create output folder if it does not exist
+    # os.makedirs(input_args.output_folder, exist_ok=True)
 
-    # step1. save all the depth maps and the masks in outputs directory
-    if input_args.output_type == "depth" or input_args.output_type == "both":
-        save_depth(input_args)
-        # We can free all the GPU memory here since we don't need it for the fusion part
-        torch.cuda.empty_cache()
+    # # step1. save all the depth maps and the masks in outputs directory
+    # if input_args.output_type == "depth" or input_args.output_type == "both":
+    #     save_depth(input_args)
+    #     # We can free all the GPU memory here since we don't need it for the fusion part
+    #     torch.cuda.empty_cache()
 
     # step2. filter saved depth maps and reconstruct point cloud
     if input_args.output_type == "fusion" or input_args.output_type == "both":

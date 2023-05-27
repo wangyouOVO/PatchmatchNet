@@ -54,11 +54,11 @@ def copy_maps(input_path: str, results_path: str, output_path: str):
 def read_reconstruction(path: str) -> Tuple[List[Camera], List[Image], List[Tuple[int, List[int]]]]:
     cameras = []
     images = []
-    for cam_file in os.listdir(os.path.join(path, "cams")):
+    for cam_file in os.listdir(os.path.join(path, "cams_1")):
         im_id = int(cam_file.split("_")[0])
         im_file = cam_file.split("_")[0] + ".jpg"
         image = PilImage.open(os.path.join(path, "images", im_file), "r")
-        intrinsics, extrinsics, _ = read_cam_file(os.path.join(path, "cams", cam_file))
+        intrinsics, extrinsics, _ = read_cam_file(os.path.join(path, "cams_1", cam_file))
         cameras.append(Camera(im_id, "PINHOLE", image.width, image.height,
                               [intrinsics[0, 0], intrinsics[1, 1], intrinsics[0, 2], intrinsics[1, 2]]))
         qvec = rotation_matrix_to_quaternion(extrinsics[0:3, 0:3])

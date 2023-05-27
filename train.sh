@@ -9,3 +9,8 @@ python train.py --batch_size 4 --epochs 8 --num_light_idx 7 --input_folder=$MVS_
 # Legacy train on DTU's training set
 #python train_dtu.py --batch_size 4 --epochs 8 --trainpath=$MVS_TRAINING --trainlist lists/dtu/train.txt \
 #--vallist lists/dtu/val.txt --logdir ./checkpoints "$@"
+
+
+
+##################
+python eval.py --scan_list "./lists/dtu/test.txt" --input_folder="F:\DATA\dtu\dtu" --output_folder="F:\DATA\dtu\dtu" --checkpoint_path "./checkpoints/params_000007.ckpt" --num_views 5 --image_max_dim 1600 --geo_mask_thres 3 --photo_thres 0.8

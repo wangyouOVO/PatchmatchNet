@@ -98,10 +98,12 @@ def read_cam_file(filename: str) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     # intrinsics: line [7-10), 3x3 matrix
     intrinsics = np.fromstring(' '.join(lines[7:10]), dtype=np.float32, sep=' ').reshape((3, 3))
     # depth min and max: line 11
-    if len(lines) >= 12:
-        depth_params = np.fromstring(lines[11], dtype=np.float32, sep=' ')
-    else:
-        depth_params = np.empty(0)
+    depth_params = np.array([0.2,3])
+
+    # if len(lines) >= 12:
+    #     depth_params = np.fromstring(lines[11], dtype=np.float32, sep=' ')
+    # else:
+    #     depth_params = np.empty(0)
 
     return intrinsics, extrinsics, depth_params
 

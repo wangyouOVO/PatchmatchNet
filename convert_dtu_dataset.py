@@ -30,7 +30,7 @@ if __name__ == "__main__":
     for scan in scans:
         # Create output folders
         scan_path = os.path.join(args.output_folder, scan)
-        cam_path = os.path.join(scan_path, "cams")
+        cam_path = os.path.join(scan_path, "cams_1")
         depth_path = os.path.join(scan_path, "depth_gt")
         image_path = os.path.join(scan_path, "images")
         mask_path = os.path.join(scan_path, "masks")

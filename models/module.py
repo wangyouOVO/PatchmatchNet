@@ -39,7 +39,6 @@ class ConvBnReLU(nn.Module):
         """forward method"""
         return F.relu(self.bn(self.conv(x)), inplace=True)
 
-
 class ConvBnReLU3D(nn.Module):
     """Implements of 3d convolution + batch normalization + ReLU."""
 
@@ -71,7 +70,6 @@ class ConvBnReLU3D(nn.Module):
         """forward method"""
         return F.relu(self.bn(self.conv(x)), inplace=True)
 
-
 class ConvBnReLU1D(nn.Module):
     """Implements 1d Convolution + batch normalization + ReLU."""
 
@@ -102,7 +100,6 @@ class ConvBnReLU1D(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """forward method"""
         return F.relu(self.bn(self.conv(x)), inplace=True)
-
 
 class ConvBn(nn.Module):
     """Implements of 2d convolution + batch normalization."""

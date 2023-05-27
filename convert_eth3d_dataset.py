@@ -29,7 +29,7 @@ if __name__ == "__main__":
     for scan in scans:
         # Create output folders
         scan_path = os.path.join(args.output_folder, scan)
-        cam_path = os.path.join(scan_path, "cams")
+        cam_path = os.path.join(scan_path, "cams_1")
         depth_path = os.path.join(scan_path, "depth_gt")
         image_path = os.path.join(scan_path, "images")
         mask_path = os.path.join(scan_path, "masks")
@@ -39,7 +39,7 @@ if __name__ == "__main__":
         os.makedirs(image_path, exist_ok=True)
         os.makedirs(mask_path, exist_ok=True)
 
-        input_cam_path = os.path.join(args.input_folder, scan, "cams")
+        input_cam_path = os.path.join(args.input_folder, scan, "cams_1")
         # Read image index file
         image_index = read_image_dictionary(os.path.join(input_cam_path, "index2prefix.txt"))
 

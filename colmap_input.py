@@ -270,7 +270,7 @@ if __name__ == "__main__":
 
     image_dir = os.path.join(args.input_folder, "images")
     model_dir = os.path.join(args.input_folder, "sparse")
-    cam_dir = os.path.join(args.output_folder, "cams")
+    cam_dir = os.path.join(args.output_folder, "cams_1")
     renamed_dir = os.path.join(args.output_folder, "images")
 
     cameras, images, points3d = read_model(model_dir, ".bin")

@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        
+      {
+        "name": "Python: Debug",
+        "type": "python",
+        "request": "launch",
+        "program": "eval.py",
+        "console": "integratedTerminal",
+        "args": ["--scan_list", "./lists/dtu/test.txt", "--input_folder", "F:\\DATA\\dtu\\dtu","--checkpoint_path","./checkpoints/params_000007.ckpt","--num_views","5","--image_max_dim","400","--geo_mask_thres", "3", "--photo_thres","0.8"]
+      }
+    ]
+  }

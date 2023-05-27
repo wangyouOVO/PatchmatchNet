@@ -14,7 +14,7 @@ class MVSDataset(Dataset):
             max_dim: int = -1,
             scan_list: str = '',
             num_light_idx: int = -1,
-            cam_folder: str = "cams",
+            cam_folder: str = "cams_1",
             pair_path: str = "pair.txt",
             image_folder: str = "images",
             depth_folder: str = "depth_gt",
